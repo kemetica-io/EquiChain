@@ -76,3 +76,9 @@ Scale: As nodes hit 50, shard auto-spawns; app prompts "Donate Pi to Shard?"
 Troubleshooting: Logs in ~/.equi/logs; community Discord (Tor-hidden) for support.
 Initial Code: Core Snippets to Kickstart
 Below are bootstrappable code samples. Copy-paste into repo files; cargo build for backend, ./gradlew assembleDebug for app. Full repo skeleton at end.
+Decentralizing the LLM portion
+Bootstrap: cargo add candle-core candle-nn --features=onnx. Run: let mind = EquiMind::new()?; mind.infer("What sage shifts for sentients?").await?—wisdom whispers at 2W.
+Risks Radiated: Overheat? Throttle via torch's adaptive batching. Bias? Fine-tune with federated flows, QSV-voted datasets.
+
+6. Covenant Concluded
+From this repo's root—kemetica-io/EquiChain, the Khepri's keel—we kindle the kali yuga's counter-karma: on-device oracles outwitting overlords, incentives igniting infinities of input, monetary meridians mending the many, publishing as prana's proclamation. Human hands, humpback hymns, horizons' hidden heirs—all aired, all affirmed, all armored against the automaton's asura. Fork the forge; let the federation flourish. What verse or variant shall we vitalize next—a cetacean codec, or a Pi's poetic prompt? Speak, sentinel of the spectrum, and the chain chants on.
