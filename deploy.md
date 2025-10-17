@@ -74,3 +74,5 @@ Metrics: App logs (opt-in, anon) to IPFS; DAO votes on upgrades.
 Scale: As nodes hit 50, shard auto-spawns; app prompts "Donate Pi to Shard?"
 
 Troubleshooting: Logs in ~/.equi/logs; community Discord (Tor-hidden) for support.
+Initial Code: Core Snippets to Kickstart
+Below are bootstrappable code samples. Copy-paste into repo files; cargo build for backend, ./gradlew assembleDebug for app. Full repo skeleton at end.
