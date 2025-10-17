@@ -116,3 +116,15 @@ Cost Estimate: $0 initial (volunteer); $500K Year 1 (audits/comms) via DAO treas
 5. Conclusion
 
 EquiChain manifests the Robinhood ethos in code: a self-sustaining DeFi ecosystem that taxes excess, shields the vulnerable, and allocates for all. By starting lean – open-source edges, zero capital – it scales organically, backed by real value to anchor trust. Implementation is feasible today with existing tools (DAGs, ZKPs, DAOs), demanding only collective will. As the marketing cry goes: Join EquiChain, and let the people’s chain rob from the rich to give to the green. For code, audits, and collaboration: equichain.org (hypothetical launch site).
+
+File structure equichain/
+├── Cargo.toml (workspace)
+├── crates/
+│   ├── dag-core/     # Rust DAG consensus
+│   ├── zkp-lib/      # Halo2 ZKPs
+│   └── mastodon-ext/ # ActivityPub plugin
+├── android/          # EquiApp (Kotlin)
+│   ├── app/
+│   └── gradle/
+├── docs/             # Guides, whitepaper
+└── docker/           # Node containers
