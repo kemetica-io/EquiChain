@@ -1,0 +1,76 @@
+package com.equichain.equiapp
+
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import org.jetbrains.anko.sdk27.coroutines.onClick
+import java.security.SecureRandom // For BIP39
+import com.libp2pjni.LibP2P // JNI to Rust DAG (add via CMake)
+
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContent {
+            MaterialTheme {
+                EquiScaffold()
+            }
+        }
+    }
+}
+
+@Composable
+fun EquiScaffold() {
+    val navController = rememberNavController()
+    NavHost(navController, startDestination = "social") {
+        composable("social") { SocialTab(navController) } // Mastodon feed
+        composable("wallet") { WalletTab() } // RHT UI
+        composable("defi") { DeFiHub() } // DAO/Alloc
+    }
+}
+
+@Composable
+fun SocialTab(nav: NavHostController) {
+    var postText by remember { mutableStateOf("") }
+    Column(modifier = Modifier.fillMaxSize().padding(16.dp)) {
+        TextField(value = postText, onValueChange = { postText = it }, label = { Text("Microblog/Publish") })
+        Button(onClick = {
+            // ActivityPub Post + RHT Embed
+            val activityJson = """{"type":"Create","content":"$postText","rht_tip": "zk_proof_here"}"""
+            // Send via fediverse-sdk (add dep: implementation 'xyz.nextfaze:fediverse-sdk:1.0')
+            FediverseClient.postToMastodon(activityJson, "equi.social") // Anon via Tor
+        }) { Text("Post & Tip") }
+        // Feed: LazyColumn of ActivityPub polls
+        Text("Mastodon Feed: Tips Flow Here") // Fetch via ActivityPub GET /timelines
+    }
+}
+
+@Composable
+fun WalletTab() {
+    // BIP39 Seed Gen + ZKP View
+    val seed = remember { generateSeed() } // SecureRandom 128-bit
+    Button(onClick = { /* Tx: JNI to Rust ZKP */ LibP2P.proveTx(42u64) }) { Text("Send RHT (ZKP Shielded)") }
+    Text("Balance: [ZKP Hidden] | Tax: Auto on >1%")
+}
+
+@Composable
+fun DeFiHub() {
+    Button(onClick = { /* DAO Vote */ }) { Text("Allocate to Needs (Quadratic)") }
+}
+
+fun generateSeed(): String {
+    val random = SecureRandom()
+    val bytes = ByteArray(16)
+    random.nextBytes(bytes)
+    return bytes.joinToString("") { "%02x".format(it) } // Hex seed
+}
+
+// Tor Routing: Integrate Orbot via Intent (add in Manifest)
