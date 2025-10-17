@@ -1,0 +1,1 @@
+Build Notes: Add deps in build.gradle: implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3', implementation 'com.squareup.okhttp3:okhttp:4.12.0' (Tor proxy). JNI for Rust: Use cargo-ndk to build libequi.so.
